@@ -74,28 +74,28 @@ iters = 1000
 g, cost = gradientDescent(X, Y, theta, alpha, iters)
 print(g)
 
-print(computeCost(X, Y, g))
-
-x = np.linspace(data.Population.min(), data.Population.max(), 100)
-f = g[0, 0] + (g[0, 1] * x)
-
-
-
-fig, ax = plt.subplots(figsize=(12,8))
-ax.plot(x, f, 'r', label='Prediction')
-ax.scatter(data.Population, data.Profit, label='Traning Data')
-ax.legend(loc=2)
-ax.set_xlabel('Population')
-ax.set_ylabel('Profit')
-ax.set_title('Predicted Profit vs. Population Size')
-plt.show()
-
-
-fig, ax = plt.subplots(figsize=(12,8))
-ax.plot(np.arange(iters), cost, 'r')
-ax.set_xlabel('Iterations')
-ax.set_ylabel('Cost')
-ax.set_title('Error vs. Training Epoch')
-plt.show()
-
-
+# print(computeCost(X, Y, g))
+#
+# x = np.linspace(data.Population.min(), data.Population.max(), 100)
+# f = g[0, 0] + (g[0, 1] * x)
+#
+#
+#
+# fig, ax = plt.subplots(figsize=(12,8))
+# ax.plot(x, f, 'r', label='Prediction')
+# ax.scatter(data.Population, data.Profit, label='Traning Data')
+# ax.legend(loc=2)
+# ax.set_xlabel('Population')
+# ax.set_ylabel('Profit')
+# ax.set_title('Predicted Profit vs. Population Size')
+# plt.show()
+#
+#
+# fig, ax = plt.subplots(figsize=(12,8))
+# ax.plot(np.arange(iters), cost, 'r')
+# ax.set_xlabel('Iterations')
+# ax.set_ylabel('Cost')
+# ax.set_title('Error vs. Training Epoch')
+# plt.show()
+#
+#
