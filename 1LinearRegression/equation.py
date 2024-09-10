@@ -1,7 +1,6 @@
 """
  此文件用于编写关于这章的相关公式/算法
 """
-import copy
 import math
 import numpy as np
 

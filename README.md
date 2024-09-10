@@ -167,12 +167,62 @@ $$
 
 
 
+# 逻辑回归
+
+## 目的
 
 
 
+## 逻辑函数
+
+不同与线性回归输出的值没有固定的范围，逻辑回归的输出有固定的几个值。如果使用函数输出固定值就需要用逻辑函数。
+$$
+g(z) = \frac{1}{1 + e^{-z}} \\
+0 < g(z) < 1
+$$
+![逻辑函数](img/逻辑函数.png)
 
 
 
+## 逻辑回归模型
+
+$$
+z = \vec{w}.\vec{x} + b \\
+f_{\vec{w},b}(\vec{x}) = g(\vec{w}.\vec{x} + b) = \frac{1}{1 + e^{-(\vec{w}.\vec{x} + b)}}
+$$
+
+通常会设置一个值(threshold)，当逻辑函数的结果大于这个值则输出1，反之则输出0
+$$
+is \ f_{\vec{w},b}(\vec{x}) \ \ge \ threshold? \\
+Yes: y = 1 \\
+No: y = 0
+$$
+
+$$
+When \ is \ f_{\vec{w},b}(\vec{x}) \ \ge \ threshold? \\
+g(z) \ge threshold \\
+z  \ge threshold \\
+\vec{w}.\vec{x} + b \ge threshold \\
+y = 1 \\
+\vec{w}.\vec{x} + b < threshold \\
+y = 0 \\
+$$
+
+其中z的表达式就是边界函数，需要根据不同的情况进行调整。
+
+
+
+## 代价函数
+
+$$
+J(\vec{w},b)=\frac{1}{m}\sum_{i=1}^{m}L(f_{\vec{w},b}(\vec{x}^{(i)},y^{(i)}) \\
+L(f_{\vec{w},b}(\vec{x}^{(i)},y^{(i)}) = \left\{
+\begin{aligned}
+x = -log(f_{\vec{w},b}(\vec{x}^{(i)}) \quad\quad if \ y^{(i)}=1 \\
+y = -log(1-f_{\vec{w},b}(\vec{x}^{(i)}) \quad if \ y^{(i)}=0 \\
+\end{aligned}
+\right.
+$$
 
 
 
