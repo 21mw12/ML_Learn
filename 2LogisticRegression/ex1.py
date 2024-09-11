@@ -21,3 +21,4 @@ ax.legend()
 ax.set_xlabel('Exam 1 Score')
 ax.set_ylabel('Exam 2 Score')
 plt.show()
+
