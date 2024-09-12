@@ -16,6 +16,18 @@
 
 
 
+# 过拟合欠拟合
+
+- 过拟合：指训练误差和测试误差之间的差距太大。模型在训练集上表现很好，但在测试集上却表现很差。模型对训练集"死记硬背"，没有理解数据背后的规律，泛化能力差。
+- 欠拟合：指模型不能在训练集上获得足够低的误差。模型复杂度低，模型在训练集上就表现很差，没法学习到数据背后的规律。
+
+- 解决方法：
+  - 收集更多的数据
+  - 减少使用特征
+  - 正则化：减少参数的大小
+
+
+
 # 线性回归
 
 ## 目的
@@ -110,6 +122,7 @@ b = b - \alpha \frac{1}{m}\sum_{i=1}^{m}(f_{\vec{w},b}(\vec{x}^{(i)})-y^{(i)}) \
 $$
 
 
+
 ## 特征值缩放
 
 特征值的大小会显著的影响到各自w系数的大小，为了提高机器学习的性能，避免特征值过大或过小，需要对特征值进行缩放。
@@ -167,9 +180,32 @@ $$
 
 
 
+## 正则化
+
+代价函数：
+$$
+J(\vec{w},b)=\frac{1}{2m}\sum_{i=1}^{m}(f_{\vec{w},b}(\vec{x})-y^{(i)})^2+\frac{\lambda}{2m}\sum_{j=1}^{n}w_{j}^{2}
+$$
+梯度下降算法：
+$$
+w_{j} = w_{j} - \alpha 
+\left \{ 
+\frac{1}{m}\sum_{i=1}^{m}[(f_{\vec{w},b} (\vec{x}^{(i)})-y^{(i)})x_{j}^{(i)}]+\frac{\lambda}{m}w_{j}
+\right \}  \\
+
+b = b - \alpha \frac{1}{m}\sum_{i=1}^{m}(f_{\vec{w},b}(\vec{x}^{(i)})-y^{(i)}) \\
+$$
+w项化简：
+$$
+w_{j} = w_{j}(1-\alpha\frac{\lambda}{m}) - \alpha \frac{1}{m}\sum_{i=1}^{m}(f_{\vec{w},b} (\vec{x}^{(i)})-y^{(i)})x_{j}^{(i)}
+$$
+
+
 # 逻辑回归
 
 ## 目的
+
+
 
 
 
@@ -212,8 +248,13 @@ $$
 
 
 
-## 代价函数
+## 逻辑回归公式
 
+函数模型：
+$$
+f_{\vec{w},b}(\vec{x}) = g(\vec{w}.\vec{x} + b) = \frac{1}{1 + e^{-(\vec{w}.\vec{x} + b)}}
+$$
+代价函数：
 $$
 J(\vec{w},b)=\frac{1}{m}\sum_{i=1}^{m}L(f_{\vec{w},b}(\vec{x}^{(i)},y^{(i)}) \\
 L(f_{\vec{w},b}(\vec{x}^{(i)},y^{(i)}) = \left\{
@@ -224,9 +265,38 @@ y = -log(1-f_{\vec{w},b}(\vec{x}^{(i)}) \quad if \ y^{(i)}=0 \\
 \right.
 $$
 
+$$
+J(\vec{w},b)=-\frac{1}{m}\sum_{i=1}^{m}[y^{(i)}log(f_{\vec{w},b}(\vec{x}^{(i)})+(1-y^{(i)})log(1-f_{\vec{w},b}(\vec{x}^{(i)})] \\
+$$
+
+梯度下降算法：
+$$
+w_{j} = w_{j} - \alpha \frac{d}{dw_{j}} J(\vec{w},b) \\
+b = b - \alpha \frac{d}{db} J(\vec{w},b) \\
+$$
+将代价函数带入梯度下降算法并计算偏导数后的表达式为：
+$$
+w_{n} = w_{n} - \alpha \frac{1}{m}\sum_{i=1}^{m}(f_{\vec{w},b}(\vec{x}^{(i)})-y^{(i)})x_{n}^{(i)} \\
+b = b - \alpha \frac{1}{m}\sum_{i=1}^{m}(f_{\vec{w},b}(\vec{x}^{(i)})-y^{(i)}) \\
+$$
 
 
 
+## 正则化
+
+代价函数：
+$$
+J(\vec{w},b)=-\frac{1}{m}\sum_{i=1}^{m}[y^{(i)}log(f_{\vec{w},b}(\vec{x}^{(i)})+(1-y^{(i)})log(1-f_{\vec{w},b}(\vec{x}^{(i)})] + \frac{\lambda}{2m}\sum_{j=1}^{n}w_{j}^{2} \\
+$$
+梯度下降算法：
+$$
+w_{j} = w_{j} - \alpha 
+\left \{ 
+\frac{1}{m}\sum_{i=1}^{m}[(f_{\vec{w},b} (\vec{x}^{(i)})-y^{(i)})x_{j}^{(i)}]+\frac{\lambda}{m}w_{j}
+\right \}  \\
+
+b = b - \alpha \frac{1}{m}\sum_{i=1}^{m}(f_{\vec{w},b}(\vec{x}^{(i)})-y^{(i)}) \\
+$$
 
 
 
