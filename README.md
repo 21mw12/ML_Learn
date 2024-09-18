@@ -1,10 +1,12 @@
-# 吴恩达机器学习
+# 机器学习
 
 “Field of study that gives computers the ability to learn without being explicitly programmed.”——arthur Samuel (1959)
 
-网课链接：https://www.bilibili.com/video/BV1Pa411X76s?p=1&vd_source=8566cec36593b0e28ee03f3c724b87d0
+吴恩达机器学习网课链接：https://www.bilibili.com/video/BV1Pa411X76s?p=1&vd_source=8566cec36593b0e28ee03f3c724b87d0
 
 课后习题链接：https://github.com/fengdu78/Coursera-ML-AndrewNg-Notes/tree/f2757f85b99a2b800f4c2e3e9ea967d9e17dfbd8
+
+周志华老师西瓜书网课链接：[1-1.教材_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1gG411f7zX?p=1)
 
 
 
@@ -25,6 +27,65 @@
   - 收集更多的数据
   - 减少使用特征
   - 正则化：减少参数的大小
+
+
+
+# 特征值缩放
+
+特征值的大小会显著的影响到各自w系数的大小，为了提高机器学习的性能，避免特征值过大或过小，需要对特征值进行缩放。
+
+![特征值缩放](img/特征值缩放.png)
+
+名词解释：可以认为特征缩放包括归一化和标准化。
+
+
+
+## 特征缩放
+
+Feature Scaling
+$$
+x_{i, scaled} = \frac{x_{i}}{x_{max}}
+$$
+
+
+## 归一化
+
+Normalization
+$$
+特征值的均值:\mu_{i} \\
+x_{i, scaled} = \frac{x_{i} - \mu_{i}}{x_{max} - x_{min}}
+$$
+
+
+## 标准化
+
+Standardization (Z-Score Normalization)
+$$
+特征值的标准差:\sigma_{i} \\
+特征值的平均值:\bar{x}_{i} \\
+x_{i, scaled} = \frac{x_{i} - \bar{x}_{i}}{\sigma_{i}}
+$$
+
+
+
+# 评估方法
+
+- 留出法：在数据集中流出一部分用于测试集
+  
+  ![留出法](img/留出法.png)
+  
+  - 保持数据分布一致性（例如：分层采样)
+  - 多次重复划分（例如：100次随机划分）
+  - 测试集不能太大、不能太小（例如：1/5~1/3）
+  - 通过训练集训练的数据经测试集测试后，应将所有数据一起再训练得到最终模型
+  
+- k-折交叉验证法：
+
+  ![k-折交叉验证法](img/k-折交叉验证法.png)
+
+- 自助法：随机复制数据中的部分数据（约36.8%的数据不会出现）
+
+  ![自助法](img/自助法.png)
 
 
 
@@ -121,43 +182,6 @@ w_{n} = w_{n} - \alpha \frac{1}{m}\sum_{i=1}^{m}(f_{\vec{w},b}(\vec{x}^{(i)})-y^
 b = b - \alpha \frac{1}{m}\sum_{i=1}^{m}(f_{\vec{w},b}(\vec{x}^{(i)})-y^{(i)}) \\
 $$
 
-
-
-## 特征值缩放
-
-特征值的大小会显著的影响到各自w系数的大小，为了提高机器学习的性能，避免特征值过大或过小，需要对特征值进行缩放。
-
-![特征值缩放](img/特征值缩放.png)
-
-名词解释：可以认为特征缩放包括归一化和标准化。
-
-
-
-### 特征缩放
-
-Feature Scaling
-$$
-x_{i, scaled} = \frac{x_{i}}{x_{max}}
-$$
-
-
-### 归一化
-
-Normalization
-$$
-特征值的均值:\mu_{i} \\
-x_{i, scaled} = \frac{x_{i} - \mu_{i}}{x_{max} - x_{min}}
-$$
-
-
-### 标准化
-
-Standardization (Z-Score Normalization)
-$$
-特征值的标准差:\sigma_{i} \\
-特征值的平均值:\bar{x}_{i} \\
-x_{i, scaled} = \frac{x_{i} - \bar{x}_{i}}{\sigma_{i}}
-$$
 
 
 ## 设置学习率
@@ -302,17 +326,240 @@ $$
 
 
 
+# 决策树
+
+越靠近根节点越在意数据的一般性区别，越靠近叶节点越在意数据细节。可以做分类也可以做回归。
+
+
+
+## 衡量标准-熵
+
+熵是表示随机变量不确定性的度量（即物体内部的混乱程度）
+
+Ent(D)表示还需要多少信息量才能把数据集D划分干净
+$$
+Ent(D) = -\sum_{k=1}^{|y|}p_{k}log_{2}p_{k} \\
+0 \le Ent(D) \le log_{2}|y|
+$$
+
+- D表示数据集
+- |y|表示类别数量
+- pk表示每种类型出现的概率
+
+
+
+## 属性划分准则
+
+通过一些原则来判断前后两次划分后数据是否变纯净。
+
+信息增益与基尼指数产生的结果，仅在约2%的情况下不同。
+
+  
+
+### 信息增益ID3
+
+以属性α对数据集D进行划分所获得的信息增益
+$$
+Gain(D,a) = Ent(D) - \sum_{v=1}^{V}\frac{|D^{v}|}{|D|}Ent(D^{v})
+$$
+
+- Dv表示D中在a上取值=av的样本集合
+
+缺点：在面对ID这种唯一性的数据，信息增益会选择他作为跟节点划分，使得决策树丧失泛化性。
+
+
+
+### 信息增益率C4.5
+
+$$
+Gain\underline{~}ratio(D,a) = \frac{Gain(D,a)}{IV(a)} \\
+IV(a) = -\sum_{v=1}^{V}\frac{|D^{v}|}{|D|}log_{2}\frac{|D^{v}|}{|D|}
+$$
+
+- 分支越多，IV(a)越大
+- 划分效果越好，Gain(D,a)越大
+- Gain_ratio(D,a)要求Gain(D,a)越大的同时IV(a)越小，即划分效果好的情况下分支还少
+
+启发式（信息增益和分支的取舍）：先从候选划分属性中找出信息增益高于平均水平的，再从中选取增益率最高的
+
+
+
+### CART
+
+基尼指数
+$$
+Gini(D) = \sum_{k=1}^{|y|} \sum_{k'\ne k}^{} = 1 - \sum_{k=1}^{|y|}p_{k}^{2} \\
+Gini\underline{~}index(D,a) = \sum_{v=1}^{V}\frac{|D^{v}|}{|D|}Gini(D^{v})
+$$
+
+- Gini(D)越小，数据集D的纯度越高
+
+
+
+## 剪枝
+
+在数据带噪时甚至可能将泛化性能提升25%
+
+- 预剪枝（pre-pruning）：通过限制深度，叶子节点个数，叶子节点样本数，信息增益量等，提前终止某些分支的生长。
+
+- 后剪枝（post-pruning）：生成一颗完全树，再进行剪枝。
+  $$
+  C_{a}(T) = C(T) + \alpha |T_{leadf}|
+  $$
+
+  - Ca(T)表示损失
+  - C(T)表示基尼指数
+  - a表示平衡项
+  - Tleaf表示叶子节点个数
+
+
+
+# 贝叶斯分类器
 
 
 
 
 
+# 支持向量机
+
+## 目的
+
+使用一个超平面将两类数据分开，同时要留有一定的间隔。
+
+![支持向量机](img/支持向量机.jpg)
 
 
 
+# Scikit-Learn
+
+## 六大功能
+
+- 分类模型（Classification）
+- 回归模型（Regression）
+- 聚类模型（Clustering）
+- 降维算法（Dimensionality reduction）
+- 模型选择（Model selection）
+- 数据预处理（Preprocessing）
 
 
 
+## 数据预处理
+
+### 数据切分
+
+```python
+from sklearn.model_selection import train_test_split
+
+# 默认训练集和测试集比例为3：1
+x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=42)
+```
+
+| 超参数       | 默认值 | 描述                                      |
+| ------------ | ------ | ----------------------------------------- |
+| train_size   | 0.25   | 训练集的占比（0~1）                       |
+| test_size    | None   | 测试集的占比（0~1）                       |
+| random_state | None   | 随机种子                                  |
+| shuffle      | True   | 是否打乱数据（False下stratify必须为None） |
+| stratify     | None   | 控制训练集和测试集不同类别样本所占比例    |
+
+
+
+### 标准化
+
+```python
+from sklearn.preprocessing import StandardScaler
+ 
+scaler = StandardScaler()
+# 计算训练集的均值和方差等数据
+scaler.fit(x)
+# 利用训练集的均值和方差对测试集进行标准化处理
+scaler.transform(x)
+
+# 二合一
+scaler.fit_transform(x)
+```
+
+| 超参数    | 默认值 | 描述             |
+| --------- | ------ | ---------------- |
+| copy      | True   | 是否拷贝新的副本 |
+| with_mean | True   | 是否减去均值     |
+| with_std  | True   | 是否除以标准差   |
+
+| 模型中的属性           | 描述                     |
+| ---------------------- | ------------------------ |
+| scaler.scale_          | 查看训练数据各列的标准差 |
+| scaler.mean_           | 查看训练数据各列的均值   |
+| scaler.var_            | 查看训练数据各列的方差   |
+| scaler.n_samples_seen_ | 总共有效的训练数据条数   |
+
+
+
+### 01标准化
+
+```python
+from sklearn.preprocessing import MinMaxScaler
+
+scaler = MinMaxScaler()
+scaler.fit_transform(x)
+```
+
+| 超参数        | 默认值 | 描述             |
+| ------------- | ------ | ---------------- |
+| feature_range | (0,1)  | 标准化范围       |
+| axis          | 0      | 对行或对列       |
+| copy          | True   | 是否拷贝新的副本 |
+
+| 模型中的属性     | 描述                     |
+| ---------------- | ------------------------ |
+| scaler.data_min_ | 查看训练数据各列的标准差 |
+| scaler.data_max_ | 查看训练数据各列的均值   |
+
+
+
+### 归一化
+
+```python
+from sklearn.preprocessing import Normalize
+
+normalize = Normalize()
+normalize.fit_transform(x)
+```
+
+| 超参数 | 默认值 | 描述                                          |
+| ------ | ------ | --------------------------------------------- |
+| norm   | l2     | 用于规格化每个非零样本的范数。（l1, l2, max） |
+| copy   | True   | 是否拷贝新的副本                              |
+
+
+
+## 评估器
+
+评估器就理解成一个个机器学习的模型，而sklearn的建模过程最核心的步骤就是围绕着评估器进行模型的训练。
+
+第一步是实例化该对象，其次是围绕某数据进行模型训练。
+
+
+
+## 线性回归评估器
+
+```python
+model = LinearRegression()
+model.set_params(params=val)
+```
+
+| 超参数        | 默认值 | 描述                         |
+| ------------- | ------ | ---------------------------- |
+| fit_intercept | True   | 是否构建带有截距项的线性方程 |
+| normalize     | False  | 是否进行正则化处理           |
+| copy_X        | True   | 建模时是否带入训练数据的副本 |
+| n_jobs        | None   | 设置工作时参与计算的CPU核数  |
+
+| 模型中的属性     | 描述                   |
+| ---------------- | ---------------------- |
+| model.coef_      | 线性方程自变量系数     |
+| model.intercept_ | 线性方程组截距项的系数 |
+| model.rank_      | 特征矩阵的秩           |
+| model.singular_  | 特征矩阵的奇异值       |
 
 
 
