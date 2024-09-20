@@ -2,11 +2,19 @@
 
 “Field of study that gives computers the ability to learn without being explicitly programmed.”——arthur Samuel (1959)
 
-吴恩达机器学习网课链接：https://www.bilibili.com/video/BV1Pa411X76s?p=1&vd_source=8566cec36593b0e28ee03f3c724b87d0
-
-课后习题链接：https://github.com/fengdu78/Coursera-ML-AndrewNg-Notes/tree/f2757f85b99a2b800f4c2e3e9ea967d9e17dfbd8
-
-周志华老师西瓜书网课链接：[1-1.教材_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1gG411f7zX?p=1)
+- 学习路线：[纯新手自学入门机器/深度学习指南（附一个月速成方案） - 知乎 (zhihu.com)](https://zhuanlan.zhihu.com/p/37349519)
+- 网课链接
+  - [吴恩达机器学习](https://www.bilibili.com/video/BV1Pa411X76s?p=1&vd_source=8566cec36593b0e28ee03f3c724b87d0)
+  - [周志华老师西瓜书](https://www.bilibili.com/video/BV1gG411f7zX?p=1)
+  - [3Blue1Brown深度学习]([【官方双语】深度学习之神经网络的结构 Part 1 ver 2.0_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1bx411M7Zx/?spm_id_from=333.999.0.0&vd_source=8566cec36593b0e28ee03f3c724b87d0))
+- 资料来源
+  - [吴恩达机器学习实验室]([kaieye/2022-Machine-Learning-Specialization (github.com)](https://github.com/kaieye/2022-Machine-Learning-Specialization/tree/main))
+  - [吴恩达机器学习笔记]([fengdu78/Coursera-ML-AndrewNg-Notes: 吴恩达老师的机器学习课程个人笔记 (github.com)](https://github.com/fengdu78/Coursera-ML-AndrewNg-Notes/tree/master))
+  - [机器学习中的数学——激活函数](https://blog.csdn.net/hy592070616/article/details/120617176)
+  - 神经网络和深度学习的在线书籍
+    - 英文版：[Neural networks and deep learning](http://neuralnetworksanddeeplearning.com/)
+    - 中文版：[引言 | 神经网络与深度学习 (gitbooks.io)](https://tigerneil.gitbooks.io/neural-networks-and-deep-learning-zh/content/)
+  - [Christopher Olah的博客](https://colah.github.io/)
 
 
 
@@ -18,7 +26,9 @@
 
 
 
-# 过拟合欠拟合
+# 基础概念
+
+## 过拟合欠拟合
 
 - 过拟合：指训练误差和测试误差之间的差距太大。模型在训练集上表现很好，但在测试集上却表现很差。模型对训练集"死记硬背"，没有理解数据背后的规律，泛化能力差。
 - 欠拟合：指模型不能在训练集上获得足够低的误差。模型复杂度低，模型在训练集上就表现很差，没法学习到数据背后的规律。
@@ -30,7 +40,7 @@
 
 
 
-# 特征值缩放
+## 特征值缩放
 
 特征值的大小会显著的影响到各自w系数的大小，为了提高机器学习的性能，避免特征值过大或过小，需要对特征值进行缩放。
 
@@ -40,7 +50,7 @@
 
 
 
-## 特征缩放
+### 特征缩放
 
 Feature Scaling
 $$
@@ -48,7 +58,7 @@ x_{i, scaled} = \frac{x_{i}}{x_{max}}
 $$
 
 
-## 归一化
+### 归一化
 
 Normalization
 $$
@@ -57,7 +67,7 @@ x_{i, scaled} = \frac{x_{i} - \mu_{i}}{x_{max} - x_{min}}
 $$
 
 
-## 标准化
+### 标准化
 
 Standardization (Z-Score Normalization)
 $$
@@ -65,6 +75,19 @@ $$
 特征值的平均值:\bar{x}_{i} \\
 x_{i, scaled} = \frac{x_{i} - \bar{x}_{i}}{\sigma_{i}}
 $$
+
+
+
+## 激活函数
+
+### Sigmoid函数
+
+$$
+g(z) = \frac{1}{1 + e^{-z}} \\
+0 < g(z) < 1
+$$
+
+![逻辑函数](img/逻辑函数.png)
 
 
 
@@ -229,25 +252,15 @@ $$
 
 ## 目的
 
-通过函数尽量将不同的数据集划分开
+不同与线性回归输出的值没有固定的范围，逻辑回归的输出有固定的几个值。如果使用函数输出固定值就需要用激活函数。通过函数尽量将不同的数据集划分开。
 
 ![逻辑回归示例](img/逻辑回归示例.png)
 
 
 
-## 逻辑函数
-
-不同与线性回归输出的值没有固定的范围，逻辑回归的输出有固定的几个值。如果使用函数输出固定值就需要用逻辑函数。
-$$
-g(z) = \frac{1}{1 + e^{-z}} \\
-0 < g(z) < 1
-$$
-![逻辑函数](img/逻辑函数.png)
-
-
-
 ## 逻辑回归模型
 
+这里的g()表示Sigmoid函数
 $$
 z = \vec{w}.\vec{x} + b \\
 f_{\vec{w},b}(\vec{x}) = g(\vec{w}.\vec{x} + b) = \frac{1}{1 + e^{-(\vec{w}.\vec{x} + b)}}
@@ -427,6 +440,69 @@ $$
 使用一个超平面将两类数据分开，同时要留有一定的间隔。
 
 ![支持向量机](img/支持向量机.jpg)
+
+
+
+# 神经网络
+
+## 结构
+
+![神经网络结构](img/神经网络结构.jpg)
+
+
+
+## 原理
+
+来源于3Blue1Brown视频中的识别手写数字案例。
+
+神经网络的输入是一个28*28大小的图片，其中每个像素的取值范围都是[0,1]，0表示黑色，1表示白色。
+
+![神经网络原理1](img/神经网络原理1.png)
+
+神经网络的结构如下，第0层有784个节点对应每个像素点，第1和第2层有16个节点，输出层是0到9的概率。
+
+![神经网络原理2](img/神经网络原理2.png)
+
+每个节点之间的线会有的对应的权重w，在节点内部会进行一个激活函数的计算，为了控制再多大权值下才会激发就需要一个参数b来控制激发阈值。
+$$
+单个节点内的公式：g(w_{1}a_{1} + w_{2}a_{2} + w_{3}a_{3} + ... + w_{n}a_{n} + b) \\
+一层的运算：
+a^{(l)} = g
+\begin{pmatrix}
+\begin{bmatrix}
+ w_{0,0} & w_{0,1} & ... & w_{0,n} \\
+ w_{1,0} & w_{1,1} & ... & w_{1,n} \\
+ ... & ... & ... & ... \\
+ w_{n,0} & w_{n,1} & ... & w_{n,n} \\
+\end{bmatrix}
+  &
+\begin{bmatrix}
+ a_{0}^{(l-1)} \\
+ a_{1}^{(l-1)} \\
+ ... \\
+ a_{n}^{(l-1)} \\
+\end{bmatrix}
+  &
++
+  &
+\begin{bmatrix}
+ b_{0} \\
+ b_{1} \\
+ ... \\
+ b_{n} \\
+\end{bmatrix}
+\end{pmatrix} \\
+使用向量表示：\vec{a}^{(l)} = g(\vec{w}^{(l)} . \vec{a}^{(l-1)} + b^{(l)})
+$$
+对于数字来说，一个数字就是各种抽象特征组合而成（如9是由圆圈和竖线组成、8是由两个圆圈组成），而抽象特征则是由更小的抽象特征组成（如圆圈是由多个小拐弯组成）。所以神经网络中隐藏层的任务就是，在第1层的节点中识别图像中小的抽象特征（如小拐弯、小竖线、小横线），在第2层的节点中识别图像中的抽象特征（如圆圈、竖线、直线），最后通过计算得出最有可能的数字是什么。
+
+==以上内容并非是神经网络真正的原理，更像是人们希望神经网络是这样的原理，实际的情况要更加抽象一些。神经网络中的隐藏层之所以这样命名就是因为人们并不知道这其中到底在干什么，这虽然不妨碍实现数字识别但整个过程就想黑箱一样我们无从得知。一方面是因为仅仅上述的网络中就有1.3w的参数调整我们无法准确的解释，另一方面很多在数学上优化并不是为了提高可解释性贰十为了高效，以及一些其他原因==
+
+
+
+## 向前传播
+
+
 
 
 
