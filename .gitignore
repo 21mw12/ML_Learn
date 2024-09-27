@@ -1,4 +1,6 @@
 #  忽略AutoGit目录
 AutoGit/
 .idea/
-.venv
+.venv/
+6NeuralNetwork/data/mnist_train.csv
+6NeuralNetwork/data/mnist_test.csv
