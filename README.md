@@ -662,3 +662,197 @@ model.set_params(params=val)
 
 
 
+# PyTorch
+
+## Dataset
+
+提供一种方式去获取数据及其label
+
+```python
+from torch.utils.data import Dataset
+
+class MyData(Dataset):
+    def __init__(self):
+        
+    def __getitem__(self, idx):
+        # 重写获取单个数据的函数
+        
+    def __len__(self):
+        # 重写获取数据总数的函数
+```
+
+
+
+## Dataloader
+
+为后面的网络提供不同的数据形式
+
+```python
+from torch.utils.data import DataLoader
+
+data_loader = DataLoader(dataset=data, batch_size=4, shuffle=True, num_workers=0, drop_last=False)
+
+for data in data_loader:
+    imgs, targets = data
+```
+
+| 超参数      | 默认值 | 描述                                 |
+| ----------- | ------ | ------------------------------------ |
+| dataset     | None   | 传入的数据                           |
+| batch_size  | 1      | 每次加载多少数据                     |
+| shuffle     | False  | 是否打乱数据集                       |
+| num_workers | 0      | 要使用多少子进程来处理数据           |
+| drop_last   | False  | 最后数据不足batch_size时，是否要抛弃 |
+
+
+
+## TensorForms
+
+可以将数据转换为Tensor算子，其中有一些属性和参数可以方便完成深度学习的训练
+
+```python
+from torchvision import transforms
+
+'''
+ToTensor
+将PIL的Image或numpy.ndarray类型的图片格式转换为Tensor格式
+'''
+transformsToTensor = transforms.ToTensor()
+img_tensor = transformsToTensor(img)
+
+'''
+Normalize
+根据传入的mean和standard将Tensor格式的图片做归一化处理
+'''
+transformsNormalize = transforms.Normalize([0.5, 0.5, 0.5], [0.5, 0.5, 0.5])
+img_normal = transformsNormalize(img_tensor)
+
+'''
+Resize
+对PIL或Tensor类型图片从新调整大小，支持sequence和int型
+sequence：（H, W）高宽
+'''
+transformsResize = transforms.Resize((100, 512))
+img_resize = transformsResize(img)
+
+'''
+RandomCrop
+对PIL或Tensor类型图片进行随机裁剪，支持sequence和int型
+sequence：（H, W）高宽
+'''
+transformsRandomCrop = transforms.RandomCrop(400)
+img_crop = transformsRandomCrop(img)
+
+'''
+Compose
+将transfroms中的各种图像操作串行结合
+'''
+transformsCompose = transforms.Compose([
+    transformsToTensor,
+    transformsNormalize,
+    transformsResize,
+    transformsRandomCrop
+])
+img_compse = transformsCompose(i)
+```
+
+
+
+## Tensorboard
+
+是一组用于数据可视化的工具。TensorBoard是包含在 TensorFlow中的一个子服务。但是后来其他深度学习框架也支持了TensorBoard的功能。
+
+```python
+from torch.utils.tensorboard import SummaryWriter
+ 
+# 初始化SummaryWriter
+writer = SummaryWriter(tag)
+
+'''
+记录点数据
+tag数据表示
+x轴数据
+y轴数据
+'''
+writer.add_scalar(tag, x, y)
+'''
+记录图片数据
+tag数据表示
+img支持torch.Tensor / numpy.array / string
+step步骤（第几张）
+dataformats图像格式CHW / HWC / HW
+'''
+writer.add_image(tag, img， step, dataformats='HWC')
+
+# 关闭writer
+writer.close()
+```
+
+打开Tensorboard网页
+
+```cmd
+# directory_name为保存数据的目录。 默认是“logs”
+# port对应端口
+tensorboard --logdir=<directory_name> --port=<port>
+```
+
+
+
+## 公共数据集加载
+
+```python
+import torchvision
+
+test_data = torchvision.datasets.CIFAR10(
+    "./dataset", 	# 数据集所保存目录
+    train=False, 	# 是否为训练集
+    transform=torchvision.transform.ToTensor(),
+    download=True	# 是否下载
+)
+```
+
+
+
+## 神经网络框架
+
+```python
+import torch.nn as nn
+import torch.nn.functional as F
+
+class Model(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.conv1 = nn.Conv2d(1, 20, 5)
+        self.conv2 = nn.Conv2d(20, 20, 5)
+
+    def forward(self, x):
+        x = F.relu(self.conv1(x))
+        return F.relu(self.conv2(x))
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

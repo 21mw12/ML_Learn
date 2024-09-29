@@ -1,6 +1,6 @@
 # _*_coding:utf-8_*_
 """
- 根据《Python神经网络编程》所写
+ 根据《Python神经网络编程》中使用纯Python实现的手写数字识别
 """
 import scipy
 import numpy as np
@@ -106,10 +106,10 @@ if __name__ == '__main__':
     epochs = 5              # 世代次数，即训练次数
 
     # 读取数据
-    # trainData = np.array(pd.read_csv("data/mnist_train_100.csv", header=None))
-    # testData = np.array(pd.read_csv("data/mnist_test_10.csv", header=None))
-    trainData = np.array(pd.read_csv("data/mnist_train.csv", header=None))
-    testData = np.array(pd.read_csv("data/mnist_test.csv", header=None))
+    trainData = np.array(pd.read_csv("data/mnist_train_100.csv", header=None))
+    testData = np.array(pd.read_csv("data/mnist_test_10.csv", header=None))
+    # trainData = np.array(pd.read_csv("data/mnist_train.csv", header=None))
+    # testData = np.array(pd.read_csv("data/mnist_test.csv", header=None))
     # drawNumberPicture(test10Data[0])
 
     # 构建神经网络
