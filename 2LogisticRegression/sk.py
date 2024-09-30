@@ -6,7 +6,7 @@ from sklearn.linear_model import LogisticRegression
 from plt_utils import draw_BoundaryFunction, draw_Data
 
 # 数据源
-path = 'data1.txt'
+path = 'data/data1.txt'
 data = pd.read_csv(path, header=None)
 m, n = data.shape    # 获取数据列数
 x_train = np.array(data.iloc[:, 0:n-1])

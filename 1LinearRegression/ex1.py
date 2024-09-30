@@ -10,7 +10,7 @@ from equation import gradientDescent
 from lab_utils_uni import plt_contour_wgrad, plt_divergence
 
 # 数据源
-path = 'data1.txt'
+path = 'data/data1.txt'
 data = pd.read_csv(path, header=None, names=['Population', 'Profit'])
 cols = data.shape[1]    # 获取数据列数
 x_train = data.iloc[:, 0:cols - 1].values.transpose()[0]

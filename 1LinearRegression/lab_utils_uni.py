@@ -21,7 +21,6 @@ dlc = dict(dlblue='#0096ff', dlorange='#FF9300', dldarkred='#C00000', dlmagenta=
 n_bin = 5
 dlcm = LinearSegmentedColormap.from_list('dl_map', dlcolors, N=n_bin)
 
-
 ##########################################################
 # Plotting Routines
 ##########################################################
