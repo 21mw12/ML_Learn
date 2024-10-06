@@ -47,6 +47,8 @@
   - plt_utils.py：可视化相关功能
 - 3DecisionTree：决策树
   - DecisionTree.py：使用sklearn实现的决策树分类和回归
+  - RandomForest.py：使用sklearn实现的随机森林分类和回归
+  - XGBoost.py：使用XGBoost的分类和回归
 - 4BayesClassifier：贝叶斯分类器
 - 5SVM：支持向量机
 - 6NeuralNetwork：神经网络
