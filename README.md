@@ -59,3 +59,6 @@
     - [部分测试集 mnist_train_10.csv](https://raw.githubusercontent.com/makeyourownneuralnetwork/makeyourownneuralnetwork/master/mnist_dataset/mnist_test_10.csv)
   - usePython.py：使用纯Python编写的手写数字识别
   - usePyTorch.py：使用PyTorchb编写的手写数字识别
+- 7KMeans：K-means聚类算法
+  - KMeans.py：使用sklearn实现的K-means聚类算法
+  - plt_utils.py：可视化相关功能
